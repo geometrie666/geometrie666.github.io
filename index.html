@@ -45,7 +45,7 @@
         let lastFrameTime = 0;
         let isHovering = false;
         
-        const globalScaleFactor = isMobile ? 1.5 : 1.5;
+        const globalScaleFactor = isMobile ? 3 : 1.5;
         const SPACING = 20 / globalScaleFactor;
         const PUSH_RADIUS = 1000 / globalScaleFactor;
         const PUSH_RADIUS_SQ = PUSH_RADIUS * PUSH_RADIUS;
@@ -84,7 +84,7 @@
                 text: 'AREL314',
                 x: margin,
                 y: margin + 80,
-                fontSize: isMobile ? 60 : 90,
+                fontSize: isMobile ? 55 : 90,
                 font: 'Arial',
                 weight: 'bold'
             });
@@ -96,7 +96,7 @@
                 y: margin + 140,
                 fontSize: isMobile ? 14 : 18,
                 font: 'Arial',
-                weight: 'normal'
+                weight: 'bold'
             });
             
             // Keywords
@@ -169,7 +169,7 @@
                 const dwy = y - wave.y;
                 const distToWave = Math.sqrt(dwx * dwx + dwy * dwy);
                 const distFromWavefront = Math.abs(distToWave - wave.radius);
-                const waveWidth = 150;
+                const waveWidth = 150 / globalScaleFactor;;
                 
                 if (distFromWavefront < waveWidth) {
                     const waveInfluence = (1 - distFromWavefront / waveWidth) * wave.intensity;
@@ -213,7 +213,7 @@
                 for (let s = 0; s < samples; s++) {
                     const b = brightnessValues[s];
                     const position = s / (samples - 1);
-                    gradient.addColorStop(position, `rgba(${b}, ${b}, ${b}, 0.6)`);
+                    gradient.addColorStop(position, `rgba(${b}, ${b}, ${b}, 0.8)`);
                 }
                 
                 ctx.fillStyle = gradient;
@@ -299,7 +299,7 @@
                     
                     // Wave is a ring: strongest at wavefront
                     const distFromWavefront = Math.abs(distToWave - wave.radius);
-                    const waveWidth = 150; // Width of the wave ring
+                    const waveWidth = 150 / globalScaleFactor; // Width of the wave ring
                     
                     if (distFromWavefront < waveWidth) {
                         const waveInfluence = (1 - distFromWavefront / waveWidth) * wave.intensity;
@@ -338,7 +338,7 @@
                             const dwy = dot.baseY - wave.y;
                             const distToWave = Math.sqrt(dwx * dwx + dwy * dwy);
                             const distFromWavefront = Math.abs(distToWave - wave.radius);
-                            const waveWidth = 150;
+                            const waveWidth = 150 / globalScaleFactor;
                             
                             if (distFromWavefront < waveWidth && distToWave > 0) {
                                 const waveInfluence = (1 - distFromWavefront / waveWidth) * wave.intensity;
@@ -413,7 +413,7 @@
                 x: e.clientX,
                 y: e.clientY,
                 radius: 0,
-                speed: 8, // Pixels per frame
+                speed: 8 / globalScaleFactor, // Pixels per frame
                 intensity: 1.0,
                 decay: 0.97 // Decay factor per frame
             });
@@ -431,7 +431,7 @@
                     x: e.touches[0].clientX,
                     y: e.touches[0].clientY,
                     radius: 0,
-                    speed: 8,
+                    speed: 8 / globalScaleFactor,
                     intensity: 1.0,
                     decay: 0.97
                 });
@@ -465,6 +465,4 @@
         animationId = requestAnimationFrame(animate);
     </script>
 </body>
-
 </html>
-
